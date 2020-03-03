@@ -19,5 +19,6 @@ def detail(value,port='1'):
     r=requests.get(url).json()
     content=r['data']['content']
     print(content)
+    print('111')
 
 detail(prtres(search('谍影重重')))
