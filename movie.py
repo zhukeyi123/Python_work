@@ -3,6 +3,7 @@ import webbrowser
 import prettytable
 import sys
 import time
+import os
 
 
 def init():  # 初始化，从服务器获取api接口、播放源数据
@@ -83,8 +84,8 @@ def detail(choice, port):  # 获取播放地址
 
 if __name__ == "__main__": #程序入口
     init()
-
-    print('*欢迎使用Movie Helper[Ver:1.0]！作者：吾爱破解@lihaisanhui\n声明：本软件不生产、储存内容，有关资源均来源于网络[调用接口：清风影视]，作者不为其中内容负法律责任\n仅供论坛会员学习交流，请于下载后24小时内删除，请勿用于商业用途！！！\n')
+    os.system('title Movie Helper[v1] @吾爱破解 lihaisanhui')
+    print('*欢迎使用Movie Helper[Ver:1.0]！作者：吾爱破解@lihaisanhui\n声明：本软件不生产、储存内容，有关资源均来源于网络，作者不为其中内容负法律责任\n仅供论坛会员学习交流，请于下载后24小时内删除，请勿用于商业用途！！！\n')
     print('*获取到播放源：')
     for name, num in ports.items():  # 输出播放源列表
         print(num, name)
