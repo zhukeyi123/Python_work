@@ -93,8 +93,11 @@ if __name__ == "__main__": #程序入口
     port = str(get_input('>请选择播放源（1，2，3...）： ', total))  # 选择播放源
     if port == '':port = '1'  # 如输入为空，默认源1
 
-    keyword = input('>请输入搜索关键词： ')
-    result = search(keyword, port)
+    while True:
+        keyword = input('>请输入搜索关键词： ')
+        result = search(keyword, port)
+        if len(result)!=0:break
+        else:print('*没有匹配的搜索结果！')
     choice = prtres(result)
     detail(choice, port)
     input('*感谢使用本软件！请按[Enter]键退出...')
