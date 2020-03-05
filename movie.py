@@ -66,7 +66,7 @@ if __name__ == "__main__":
     for name,num in ports.items():
         print(num,name)
     total=int(list(ports.values())[-1])
-    port=get_input('请选择播放源（1，2，3...）： ',total)
+    port=str(get_input('请选择播放源（1，2，3...）： ',total))
     keyword=input('请输入搜索关键词： ')
     result=search(keyword,port)
     choice=prtres(result)
