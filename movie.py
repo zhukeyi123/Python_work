@@ -92,4 +92,4 @@ if __name__ == "__main__": #程序入口
     result = search(keyword, port)
     choice = prtres(result)
     detail(choice, port)
-    print('感谢使用本软件！')
+    input('感谢使用本软件！请按[Enter]键退出...')
