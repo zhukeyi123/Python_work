@@ -68,7 +68,7 @@ def detail(choice, port):  # 获取播放地址
     # 播放视频
     i = get_input('请选择要播放的剧集： ', len(content))
     while True:  # 播放时循环
-        print('\n正在播放： '+choice['title']+content[i-1]['name'])
+        print('\n正在播放： '+choice['title']+'  ['+content[i-1]['name']+']')
         webbrowser.open('https://www.m3u8play.com/?play=' + content[i-1]['url'])  # 浏览器打开播放地址
         t = get_input('控制栏(按q-退出软件，输入序号-换集，留空-切下一集)： ', len(content))
         if t == '':
