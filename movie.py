@@ -73,7 +73,7 @@ def detail(choice, port):  # 获取播放地址
         print('    *正在用默认浏览器打开播放页！')
         time.sleep(1.5)
         webbrowser.open('https://www.m3u8play.com/?play=' + content[i-1]['url'])  # 浏览器打开播放地址
-        t = get_input('   >控制栏(按q-退出软件，输入序号-换集，留空-切下一集)： ', len(content))
+        t = get_input('    >控制栏(按q-退出软件，输入序号-换集，留空-切下一集)： ', len(content))
         if t == '':
             if i == len(content):
                 print('已经是最后一集！')
