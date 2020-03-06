@@ -15,15 +15,18 @@ def init():  # 初始化
     ports = r.json()['播放源'][0]
 
 
-def get_input(text, maxint):  # 用户输入判断
+def get_input(text, maxint,extra=None):  # 用户输入判断
     while True:
         userin = input(text)
         if userin.lower() == 'q':  # 输入q退出程序
             sys.exit()
         elif userin == '':
-            return userin
+            if extra=='v':
+                return ''
+            elif extra=='p':
+                return 1
         if userin.isdecimal() == True:  # 判断输入是否合法，以免发生错误
-            if int(userin) <= maxint:
+            if int(userin) <= maxint and int(userin)>0:
                 return int(userin)
         print(colorama.Back.RED+'*您的输入非法，请重新输入！')
 
@@ -78,7 +81,7 @@ def detail(choice, port):  # 获取播放地址
         print('    *正在用默认浏览器打开播放页！')
         time.sleep(1)
         webbrowser.open('https://www.m3u8play.com/?play=' + content[i-1]['url'])  # 浏览器打开播放地址
-        t = get_input('    >控制栏[输入q-退出软件，输入序号-换集，留空-切下一集]： ', len(content))
+        t = get_input('    >控制栏[输入q-退出软件，输入序号-换集，留空-切下一集]： ', len(content),'v')
         if t == '':
             if i == len(content):
                 print(colorama.Back.RED+'*已经是最后一集！')
@@ -93,8 +96,7 @@ if __name__ == "__main__": #程序入口
     for name, num in ports.items():  # 输出播放源列表
         print(num, name)
     total = int(list(ports.values())[-1])  # 播放源总数
-    port = str(get_input('>请选择播放源（1，2，3...）： ', total))  # 选择播放源
-    if port == '':port = '1'  # 如输入为空，默认源1
+    port = str(get_input('>请选择播放源（1，2，3...）： ', total,'p'))  # 选择播放源
 
     result=search(port)
     choice = prtres(result)
