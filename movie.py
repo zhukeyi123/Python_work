@@ -39,7 +39,7 @@ def search(port):  # 获取搜索结果
         if r['code']==200:
             data = r['data']  # 搜索结果
             return data
-        else:print(colorama.Back.RED+'*发生错误['+str(r['code'])+']，错误信息：'+r['msg'])
+        else:print(colorama.Back.RED+'*发生错误['+str(r['code'])+']： '+r['msg'])
 
 
 def prtres(result):  # 打印搜索结果
@@ -96,7 +96,7 @@ if __name__ == "__main__": #程序入口
     for name, num in ports.items():  # 输出播放源列表
         print(num, name)
     total = int(list(ports.values())[-1])  # 播放源总数
-    port = str(get_input('>请选择播放源（1，2，3...）： ', total,'p'))  # 选择播放源
+    port = str(get_input('>请选择播放源[1，2，3...]： ', total,'p'))  # 选择播放源
 
     result=search(port)
     choice = prtres(result)
