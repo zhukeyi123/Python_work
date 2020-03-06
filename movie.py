@@ -30,7 +30,7 @@ def get_input(text, maxint):  # 用户输入判断
 
 def search(port):  # 获取搜索结果
     while True:
-        keyword = input('>请输入搜索关键词： ')
+        keyword = input('>请输入搜索关键词[源 '+port+']')
         url = api+'?type=search&jiekou='+port+'&value='+keyword  # 拼接api
         r = requests.get(url).json()  # 返回json
         if r['code']==200:
