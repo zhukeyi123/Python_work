@@ -1,12 +1,10 @@
-import requests
-import webbrowser
-import prettytable
-import sys
-import time
-import os
+import requests,webbrowser,prettytable,sys,time,os
 
-
-def init():  # 初始化，从服务器获取api接口、播放源数据
+def init():  # 初始化
+    # 提示语
+    os.system('title Movie Helper[v1] @吾爱破解 lihaisanhui') #设置窗口标题
+    print('*欢迎使用Movie Helper[Ver:1.0]！作者：吾爱破解@lihaisanhui\n声明：本软件不生产、储存内容，有关资源均来源于网络，作者不为其中内容负法律责任\n仅供论坛会员学习交流，请于下载后24小时内删除，请勿用于商业用途！！！\n')
+    # 从服务器获取api接口、播放源数据
     url = 'https://www.ttupp.com/tv.txt'
     r = requests.get(url)
     r.encoding = 'GB2312'
@@ -28,11 +26,15 @@ def get_input(text, maxint):  # 用户输入判断
         print('*您的输入非法，请重新输入！')
 
 
-def search(keyword, port):  # 获取搜索结果
-    url = api+'?type=search&jiekou='+port+'&value='+keyword  # 拼接api
-    r = requests.get(url).json()  # 返回json
-    data = r['data']  # 搜索结果
-    return data
+def search(port):  # 获取搜索结果
+    while True:
+        keyword = input('>请输入搜索关键词： ')
+        url = api+'?type=search&jiekou='+port+'&value='+keyword  # 拼接api
+        r = requests.get(url).json()  # 返回json
+        if r['code']==200:
+            data = r['data']  # 搜索结果
+            return data
+        else:print('*发生错误['+r['code']+']，错误信息：'+r['msg'])
 
 
 def prtres(result):  # 打印搜索结果
@@ -70,22 +72,21 @@ def detail(choice, port):  # 获取播放地址
     # 播放视频
     i = get_input('>请选择要播放的剧集： ', len(content))
     while True:  # 播放时循环
-        print('\n*正在播放： '+choice['title']+'  ['+content[i-1]['name']+']')
+        print('\n*正在播放： '+choice['title']+' ['+content[i-1]['name']+']')
         print('    *正在用默认浏览器打开播放页！')
-        time.sleep(1.5)
+        time.sleep(1)
         webbrowser.open('https://www.m3u8play.com/?play=' + content[i-1]['url'])  # 浏览器打开播放地址
-        t = get_input('    >控制栏(按q-退出软件，输入序号-换集，留空-切下一集)： ', len(content))
+        t = get_input('    >控制栏[输入q-退出软件，输入序号-换集，留空-切下一集]： ', len(content))
         if t == '':
             if i == len(content):
-                print('已经是最后一集！')
+                print('*已经是最后一集！')
                 break
             else:i += 1
         else:i = t
 
 if __name__ == "__main__": #程序入口
-    init()
-    os.system('title Movie Helper[v1] @吾爱破解 lihaisanhui')
-    print('*欢迎使用Movie Helper[Ver:1.0]！作者：吾爱破解@lihaisanhui\n声明：本软件不生产、储存内容，有关资源均来源于网络，作者不为其中内容负法律责任\n仅供论坛会员学习交流，请于下载后24小时内删除，请勿用于商业用途！！！\n')
+    init() #初始化
+
     print('*获取到播放源：')
     for name, num in ports.items():  # 输出播放源列表
         print(num, name)
@@ -93,11 +94,7 @@ if __name__ == "__main__": #程序入口
     port = str(get_input('>请选择播放源（1，2，3...）： ', total))  # 选择播放源
     if port == '':port = '1'  # 如输入为空，默认源1
 
-    while True:
-        keyword = input('>请输入搜索关键词： ')
-        result = search(keyword, port)
-        if len(result)!=0:break
-        else:print('*没有匹配的搜索结果！')
+    result=search(port)
     choice = prtres(result)
     detail(choice, port)
     input('*感谢使用本软件！请按[Enter]键退出...')
