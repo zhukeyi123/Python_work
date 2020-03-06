@@ -1,9 +1,11 @@
-import requests,webbrowser,prettytable,sys,time,os
+import requests,webbrowser,prettytable,sys,time,os,colorama
 
 def init():  # 初始化
     # 提示语
+    colorama.init(True)
     os.system('title Movie Helper[v1] @吾爱破解 lihaisanhui') #设置窗口标题
-    print('*欢迎使用Movie Helper[Ver:1.0]！作者：吾爱破解@lihaisanhui\n声明：本软件不生产、储存内容，有关资源均来源于网络，作者不为其中内容负法律责任\n仅供论坛会员学习交流，请于下载后24小时内删除，请勿用于商业用途！！！\n')
+    print('*欢迎使用Movie Helper[Ver:1.0]！作者：吾爱破解@lihaisanhui')
+    print(colorama.Fore.RED+'声明：本软件不生产、储存内容，有关资源均来源于网络，作者不为其中内容负法律责任\n仅供论坛会员学习交流，请于下载后24小时内删除，请勿用于商业用途！！！\n')
     # 从服务器获取api接口、播放源数据
     url = 'https://www.ttupp.com/tv.txt'
     r = requests.get(url)
@@ -23,7 +25,7 @@ def get_input(text, maxint):  # 用户输入判断
         if userin.isdecimal() == True:  # 判断输入是否合法，以免发生错误
             if int(userin) <= maxint:
                 return int(userin)
-        print('*您的输入非法，请重新输入！')
+        print(colorama.Back.RED+'*您的输入非法，请重新输入！')
 
 
 def search(port):  # 获取搜索结果
@@ -34,7 +36,7 @@ def search(port):  # 获取搜索结果
         if r['code']==200:
             data = r['data']  # 搜索结果
             return data
-        else:print('*发生错误['+r['code']+']，错误信息：'+r['msg'])
+        else:print(colorama.Back.RED+'*发生错误['+str(r['code'])+']，错误信息：'+r['msg'])
 
 
 def prtres(result):  # 打印搜索结果
@@ -55,7 +57,7 @@ def detail(choice, port):  # 获取播放地址
     url = api+'?type=video&jiekou='+port+'&value='+choice['url']  # 拼接api
     r = requests.get(url).json()  # 返回json
     content = r['data']['content']
-    print('*已选：【'+choice['title']+' / 共'+str(len(content))+'集】')
+    print(colorama.Back.GREEN+'*已选：【'+choice['title']+' / 共'+str(len(content))+'集】')
 
     # 写入下载地址
     with open('./'+choice['title']+'_DownloadUrl.txt', 'w') as txt:  
@@ -72,14 +74,14 @@ def detail(choice, port):  # 获取播放地址
     # 播放视频
     i = get_input('>请选择要播放的剧集： ', len(content))
     while True:  # 播放时循环
-        print('\n*正在播放： '+choice['title']+' ['+content[i-1]['name']+']')
+        print(colorama.Back.GREEN+'\n*正在播放： '+choice['title']+' ['+content[i-1]['name']+']')
         print('    *正在用默认浏览器打开播放页！')
         time.sleep(1)
         webbrowser.open('https://www.m3u8play.com/?play=' + content[i-1]['url'])  # 浏览器打开播放地址
         t = get_input('    >控制栏[输入q-退出软件，输入序号-换集，留空-切下一集]： ', len(content))
         if t == '':
             if i == len(content):
-                print('*已经是最后一集！')
+                print(colorama.Back.RED+'*已经是最后一集！')
                 break
             else:i += 1
         else:i = t
