@@ -20,7 +20,7 @@ def get_input(text, maxint,extra=None):  # 用户输入判断
         userin = input(text)
         if userin.lower() == 'q':  # 输入q退出程序
             sys.exit()
-        elif userin == '':
+        elif userin == '': #输入为空的处理，extra参数用于确定调用位置
             if extra=='v':
                 return ''
             elif extra=='p':
