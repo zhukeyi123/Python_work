@@ -12,8 +12,11 @@ def httpget(url):
             return r.text
         except requests.RequestException as e:
             print(colorama.Back.RED+'发生错误：'+str(e))
-            print(colorama.Back.RED+'正在尝试第{}次重连！'.format(str(i)))
+            print('[{}/3]正在尝试重连！'.format(str(i)))
             i+=1
+    print(colorama.Back.RED+'重连失败，请复制错误信息报告作者！')
+    input('请按Enter键退出！')
+    sys.exit()
 
 def get_input(maxint,text):
     while True:
@@ -70,27 +73,30 @@ class mtl():
         i1=0 #下载图集数
         c=0 #下载图片计数
         t0=time.time()
+        print('已开始下载任务！')
         for title in self.titles:
-            print('\n--------------------正在下载第{}组，还剩{}组--------------------'.format(str(i1+1),str(len(self.titles)-i1-1)))
+            print('-------------------->>正在下载第{}组，还剩{}组<<--------------------'.format(str(i1+1),str(len(self.titles)-i1-1)))
             print('    ·图册标题：'+title)
             fdir='./Photos/'+title+'/'
             if os.path.isdir(fdir) == False:
                 os.makedirs(fdir)
-            pbar=tqdm.tqdm(range(len(self.allurls[i1])),ascii=True,ncols=100)
+            pbar=tqdm.tqdm(range(len(self.allurls[i1])),ascii=True,ncols=90)
             for i2 in pbar:
                 path=fdir+'{}.jpg'.format(str(i2+1))
                 if os.path.isfile(path)==False:
-                    pbar.set_description_str('    ·下载进度')
+                    pbar.set_description_str(colorama.Fore.GREEN+'    ·下载进度')
                     try:
                         request.urlretrieve(self.allurls[i1][i2],path)
                         c+=1
                     except Exception:
-                        pbar.set_description_str('    ·下载出错')
+                        pbar.set_description_str(colorama.Fore.RED+'    ·下载出错')
                         time.sleep(1.5)
-                else:pbar.set_description_str('    ·图片已存在')
+                else:
+                    pbar.set_description_str(colorama.Fore.YELLOW+'    ·图片已存在')
+                    time.sleep(0.05)
             i1+=1
         t1=time.time()
-        print(colorama.Back.GREEN+'已完成下载任务，共下载图集{}个（图片{}张），耗时{}秒'.format(str(i1),str(c),str(round(t1-t0,3))))
+        print(colorama.Back.GREEN+'\n已完成下载任务，共下载图集{}个（图片{}张），耗时{}秒'.format(str(i1),str(c),str(round(t1-t0,3))))
 
     def run(self):
         colorama.init(True)
