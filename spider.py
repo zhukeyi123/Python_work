@@ -36,7 +36,9 @@ class mtl():
                 keyword=input('请输入搜索关键词： ')
                 if keyword=='':print(colorama.Back.RED+'关键词不能为空！')
                 elif keyword=='q':sys.exit()
+                elif str.isalnum(keyword)==False:print(colorama.Back.RED+'您的输入非法，请重新输入！')
                 else:break
+                
             t0=time.time()
             url=self.host+'/search/'+keyword
             html=httpget(url)
@@ -74,12 +76,17 @@ class mtl():
             fdir='./Photos/'+title+'/'
             if os.path.isdir(fdir) == False:
                 os.makedirs(fdir)
-            pbar=tqdm.tqdm(range(len(self.allurls[i1])),desc='    ·下载进度',ascii=True,ncols=100)
+            pbar=tqdm.tqdm(range(len(self.allurls[i1])),ascii=True,ncols=100)
             for i2 in pbar:
                 path=fdir+'{}.jpg'.format(str(i2+1))
                 if os.path.isfile(path)==False:
-                    request.urlretrieve(self.allurls[i1][i2],path)
-                    c+=1
+                    pbar.set_description_str('    ·下载进度')
+                    try:
+                        request.urlretrieve(self.allurls[i1][i2],path)
+                        c+=1
+                    except Exception:
+                        pbar.set_description_str('    ·下载出错')
+                        time.sleep(1.5)
                 else:pbar.set_description_str('    ·图片已存在')
             i1+=1
         t1=time.time()
@@ -92,6 +99,8 @@ class mtl():
         self.download()
         
 if __name__ == "__main__":
+    os.system('title MeiTuLuSpider[V2] @吾爱破解 lihaisanhui')
+    print('欢迎使用美图录Spider[V2,2020.03.11]！\n前往数据源：https://www.meitulu.com 下载更多精彩图片！\n')
     mtl=mtl()
     mtl.run()
     input('请按Enter键退出！')
