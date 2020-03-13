@@ -151,7 +151,7 @@ class mtl():
                 self.tag()
                 break
             elif choose=='3':
-                webbrowser.open('http://note.youdao.com/noteshare?id=99928be7b320caaff104cf54c1ec1d1c')
+                webbrowser.open('https://github.com/zhukeyi123/Python_Work/blob/master/mtl_spider/mtl_spider_help.md')
             else:
                 print(colorama.Back.RED+'没有这个选项！')
         self.makeurls()
