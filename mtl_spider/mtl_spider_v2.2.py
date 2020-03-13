@@ -83,9 +83,9 @@ class mtl():
                     page=ehtml.xpath("//div[@id='pages']/a[last()-1]/text()")[0]
                     result=ehtml.xpath("//ul[@class='img']/li")
                     if page!='1':
-                        p=get_input(int(page),'请输入要解析的页数[总页数{}]'.format(page))
+                        p=get_input(int(page),'请输入要解析的页数[总页数{}]： '.format(page))
                         if p!=1:
-                            pbar=tqdm.tqdm(range(2,int(page)+1),desc='解析进度',ncols=80)
+                            pbar=tqdm.tqdm(range(2,p+1),desc='解析进度',ncols=80)
                             for i1 in pbar:
                                 result+=self.get_results(url+str(i1)+'.html')
                         print('标签[{}]下共找到图集{}个'.format(tags[i],len(result)))
