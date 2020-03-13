@@ -105,8 +105,8 @@ class mtl():
         self.download()
         
 if __name__ == "__main__":
-    os.system('title MeiTuLuSpider[V2] @吾爱破解 lihaisanhui')
-    print('欢迎使用美图录Spider[V2,2020.03.11]！\n前往数据源：https://www.meitulu.com 下载更多精彩图片！\n')
+    os.system('title MeiTuLuSpider[V2.1] @吾爱破解 lihaisanhui')
+    print('欢迎使用美图录Spider[V2.1-2020.03.12]！\n前往数据源：https://www.meitulu.com 下载更多精彩图片！\n')
     mtl=mtl()
     mtl.run()
     input('请按Enter键退出！')
