@@ -100,7 +100,7 @@ class mtl():
     def makeurls(self):
         i=get_input(len(self.results),'请输入爬取图集数量： ')
         for result in self.results[:i]: #result：一个图集，self.results：所有图集
-            title=result.xpath("./p[@class='p_title']/a/text()")[0] #获取图集标题
+            title=result.xpath("./p[@class='p_title']/a/text()")[0].replace(' ','') #获取图集标题
             str_num=result.xpath("./p[1]/text()")[0]
             num=re.search(r'(?<=：).*(?=张)', str_num).group().strip() #提取图片数量
             url0=result.xpath("./a/img/@src")[0].replace('0.jpg','{}.jpg') #图片链接模板
