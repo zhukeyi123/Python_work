@@ -49,7 +49,6 @@ class mtl():
                 keyword=input('请输入搜索关键词： ')
                 if keyword=='':print(colorama.Back.RED+'关键词不能为空！')
                 elif keyword=='q':sys.exit()
-                elif str.isalnum(keyword)==False:print(colorama.Back.RED+'您的输入非法，请重新输入！')
                 else:break
                 
             t0=time.time()
@@ -159,7 +158,7 @@ class mtl():
         
 if __name__ == "__main__":
     os.system('title MeiTuLuSpider[V2.2] @吾爱破解 lihaisanhui')
-    print('欢迎使用美图录Spider[V2.2-2020.03.14]！\n前往数据源：https://www.meitulu.com 下载更多精彩图片！\n')
+    print('欢迎使用美图录Spider[V2.2-2020.04.10]！\n前往数据源：https://www.meitulu.com 下载更多精彩图片！\n')
     colorama.init(True)
     pydict={'长筒袜':[['chang'],['tong'],['wa']]}
     mtl=mtl()
