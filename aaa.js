@@ -1,6 +1,10 @@
 name: Documents
 desc: Documents
 
+tiles:
+  - name: Documents
+    interval: 43200
+
 http:
   mitm:
     - "license.pdfexpert.com"
@@ -15,6 +19,6 @@ http:
       max-size: 1048576 # 1MB
  
 script-providers:
-  Documents.js:
+  Documents:
     url: https://raw.githubusercontent.com/Yu9191/Rewrite/main/Documents.js
     interval: 86400
